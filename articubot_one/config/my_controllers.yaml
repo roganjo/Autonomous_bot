@@ -1,0 +1,61 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+
+    diff_cont:
+      type: diff_drive_controller/DiffDriveController
+
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+diff_cont:
+  ros__parameters:
+    left_wheel_names:  ['left_wheel_joint']
+    right_wheel_names: ['right_wheel_joint']
+
+    wheel_separation: 0.3      # = 2 * wheel_offset_y (2 * 0.15 m) — matches xacro
+    wheel_radius: 0.054        # matches xacro wheel_radius property
+
+    use_stamped_vel: false
+
+    publish_rate: 50.0
+    base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: true
+    open_loop: false
+
+    # FIX: reduced from 0.5 s to 0.1 s so the controller actively brakes
+    # to zero quickly when no cmd_vel is received, preventing phantom drift
+    cmd_vel_timeout: 0.1
+
+    pose_covariance_diagonal:  [0.001, 0.001, 1.0e6, 1.0e6, 1.0e6, 0.01]
+    twist_covariance_diagonal: [0.001, 1.0e6, 1.0e6, 1.0e6, 1.0e6, 0.05]
+
+    # linear.x.max_velocity: 1.0
+    # # FIX: was 0.0 — a min_velocity of 0.0 means the controller never
+    # # commands a negative (braking) velocity to stop the wheel.
+    # # Setting to -1.0 allows the controller to actively decelerate to zero.
+    # linear.x.min_velocity: -1.0
+    # linear.x.max_acceleration: 0.25
+    # linear.x.max_deceleration: 0.5
+    # linear.x.max_acceleration_reverse: 0.1
+    # linear.x.max_deceleration_reverse: 0.5
+    # linear.x.max_jerk: .NAN
+    # linear.x.min_jerk: .NAN
+
+    # angular.z.max_velocity: 0.8
+    # # FIX: was 0.0 — same braking reason as linear min_velocity above
+    # angular.z.min_velocity: -0.8
+    # angular.z.max_acceleration: 0.5
+    # angular.z.max_deceleration: 0.5
+    # angular.z.max_acceleration_reverse: 0.5
+    # angular.z.max_deceleration_reverse: 0.5
+    # angular.z.max_jerk: .NAN
+    # angular.z.min_jerk: .NAN
+
+
+joint_broad:
+  ros__parameters:
+    joints:
+      - left_wheel_joint
+      - right_wheel_joint

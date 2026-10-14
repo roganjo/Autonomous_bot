@@ -1,0 +1,12 @@
+<library path="diffbot_hardware">
+  <class
+    name="diffbot_hardware/DiffBotHardware"
+    type="diffbot_hardware::DiffBotHardware"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>
+      BTS7960 differential drive hardware interface.
+      Communicates with an ESP32 over serial (UART/USB-CDC).
+      Supports two DC motors with quadrature encoders.
+    </description>
+  </class>
+</library>

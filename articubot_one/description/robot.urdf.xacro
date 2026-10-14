@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <!-- use_ros2_control = true  -> ros2_control (real robot, or Gazebo via gazebo_ros2_control)
+                           false -> the Gazebo diff-drive plugin (gazebo_control.xacro)
+         sim_mode =         true  -> GazeboSystem hardware, false -> DiffBotHardware (ESP32 over serial)
+         serial_port =      ESP32 serial device, only used when sim_mode is false -->
+    <xacro:arg name="use_ros2_control" default="true"/>
+    <xacro:arg name="sim_mode" default="false"/>
+    <xacro:arg name="serial_port" default="/dev/ttyUSB0"/>
+
+    <xacro:include filename="robot_core.xacro" />
+
+    <xacro:if value="$(arg use_ros2_control)">
+        <xacro:include filename="ros2_control.xacro" />
+    </xacro:if>
+    <xacro:unless value="$(arg use_ros2_control)">
+        <xacro:include filename="gazebo_control.xacro" />
+    </xacro:unless>
+
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="face.xacro" />
+
+</robot>

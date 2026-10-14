@@ -1,0 +1,51 @@
+# Autonomous Bot workspace (this folder is ~/autonomous_bot/src)
+# Everything below is generated on each PC and must not be shared.
+
+# ── colcon build output (if someone builds from inside src/) ──
+build/
+install/
+log/
+
+# ── YDLidar SDK: built locally with CMake (README step 4) ──
+YDLidar-SDK/build/
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ── C/C++ build leftovers ──
+*.o
+*.a
+*.so
+*.out
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+
+# ── Arduino / PlatformIO build output (firmware) ──
+.pio/
+*.elf
+*.bin
+*.hex
+*.map
+diffbot_hardware/firmware/**/build/
+
+# ── ROS tools output ──
+frames*.pdf
+frames*.gv
+rosbag2_*/
+*.db3
+*.mcap
+
+# ── Editors and OS ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Note: the maps in articubot_one/map/ (.pgm .yaml .posegraph .data) are NOT ignored.
+# They are needed for localization and navigation, so new maps you save there are shared too.
